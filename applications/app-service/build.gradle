@@ -1,0 +1,62 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+	implementation project(':reactive-web')
+    implementation project(':model')
+    implementation project(':usecase')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    testImplementation 'com.tngtech.archunit:archunit:1.4.1'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+}
+
+// Configuración de pruebas
+test {
+    useJUnitPlatform()
+    failFast = true
+    
+    // Ejecutar pruebas de arquitectura en cada build
+    systemProperty 'archunit.freeze.store.default.path', layout.buildDirectory.dir('archunit-store').get().asFile.absolutePath
+    
+    // Configurar reportes
+    reports {
+        junitXml.required = true
+        html.required = true
+    }
+    
+    // Mostrar resultados detallados
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Tarea para ejecutar solo pruebas de arquitectura
+tasks.register('architectureTest', Test) {
+    useJUnitPlatform()
+    include '**/ArchitectureTest.class'
+    failFast = true
+    
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Hacer que build dependa de las pruebas de arquitectura
+build.dependsOn architectureTest
+
+tasks.register('explodedJar', Copy) {
+    with jar
+    into layout.buildDirectory.dir("exploded")
+}
+
+jar {
+    // To disable the *-plain.jar
+    enabled = false
+}
+
+bootJar {
+    // Sets output jar name
+    archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
+}
