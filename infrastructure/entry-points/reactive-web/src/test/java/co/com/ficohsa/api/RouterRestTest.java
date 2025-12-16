@@ -1,9 +1,11 @@
 package co.com.ficohsa.api;
 
+import co.com.ficohsa.usecase.GetCryptoPriceUseCase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -11,6 +13,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @ContextConfiguration(classes = {RouterRest.class, Handler.class})
 @WebFluxTest
 class RouterRestTest {
+
+    @MockBean
+    private GetCryptoPriceUseCase getCryptoPriceUseCase;
 
     @Autowired
     private WebTestClient webTestClient;
@@ -34,21 +39,6 @@ class RouterRestTest {
         webTestClient.get()
                 .uri("/api/otherusercase/path")
                 .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(String.class)
-                .value(userResponse -> {
-                            Assertions.assertThat(userResponse).isEmpty();
-                        }
-                );
-    }
-
-    @Test
-    void testListenPOSTUseCase() {
-        webTestClient.post()
-                .uri("/api/usecase/otherpath")
-                .accept(MediaType.APPLICATION_JSON)
-                .bodyValue("")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)

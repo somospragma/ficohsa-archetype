@@ -1,8 +1,17 @@
 pluginManagement {
     repositories {
-        //mavenLocal()
-        //maven { url = '...' }
         gradlePluginPortal()
+        mavenCentral()
+        maven { url = "https://repo.spring.io/milestone" }
+        maven { url = "https://repo.spring.io/snapshot" }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url = "https://repo.spring.io/milestone" }
+        maven { url = "https://repo.spring.io/snapshot" }
     }
 }
 
@@ -14,11 +23,18 @@ buildCache {
 
 rootProject.name = 'ScaffoldFicohsa'
 
+// Applications Layer
 include ':app-service'
-include ':model'
 include ':usecase'
 project(':app-service').projectDir = file('./applications/app-service')
-project(':model').projectDir = file('./domain/model')
 project(':usecase').projectDir = file('./applications/usecase')
+
+// Domain Layer
+include ':model'
+project(':model').projectDir = file('./domain/model')
+
+// Infrastructure Layer
 include ':reactive-web'
+include ':external-api'
 project(':reactive-web').projectDir = file('./infrastructure/entry-points/reactive-web')
+project(':external-api').projectDir = file('./infrastructure/driven-adapters/external-api')

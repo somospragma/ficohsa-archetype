@@ -2,6 +2,7 @@ apply plugin: 'info.solidsoft.pitest.aggregator'
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url = "https://repo.spring.io/snapshot" }
         maven { url = "https://repo.spring.io/milestone" }
@@ -30,6 +31,9 @@ subprojects {
     dependencies {
         implementation 'io.projectreactor:reactor-core'
         implementation 'io.projectreactor.addons:reactor-extra'
+
+        // Ficohsa Logging Library
+        implementation 'ficohsa-logging:logging-spring-boot-starter:unspecified'
 
         testImplementation 'io.projectreactor.tools:blockhound-junit-platform:1.0.15.RELEASE'
 
@@ -89,7 +93,7 @@ jacoco {
 }
 
 tasks.register('jacocoMergedReport', JacocoReport) {
-    dependsOn = [test, subprojects.jacocoTestReport, pitestReportAggregate]
+    dependsOn = [subprojects.test, subprojects.jacocoTestReport, pitestReportAggregate]
     additionalSourceDirs.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
     sourceDirectories.setFrom files(subprojects.sourceSets.main.allSource.srcDirs)
     classDirectories.setFrom files(subprojects.sourceSets.main.output)

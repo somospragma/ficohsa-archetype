@@ -2,9 +2,11 @@ package co.com.ficohsa.api.config;
 
 import co.com.ficohsa.api.Handler;
 import co.com.ficohsa.api.RouterRest;
+import co.com.ficohsa.usecase.GetCryptoPriceUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -13,6 +15,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @WebFluxTest
 @Import({CorsConfig.class, SecurityHeadersConfig.class})
 class ConfigTest {
+
+    @MockBean
+    private GetCryptoPriceUseCase getCryptoPriceUseCase;
 
     @Autowired
     private WebTestClient webTestClient;

@@ -1,11 +1,13 @@
 package co.com.ficohsa.config;
 
+import co.com.ficohsa.adapter.CryptoApiAdapter;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 class UseCasesConfigTest {
 
@@ -29,6 +31,11 @@ class UseCasesConfigTest {
     @Configuration
     @Import(UseCasesConfig.class)
     static class TestConfig {
+
+        @Bean
+        public CryptoApiAdapter cryptoApiAdapter() {
+            return mock(CryptoApiAdapter.class);
+        }
 
         @Bean
         public MyUseCase myUseCase() {

@@ -22,3 +22,21 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+
+# Ficohsa Logging Configuration
+ficohsa:
+  logging:
+    format: JSON
+    mask-confidential: true
+    record-type: U
+    log-group: scaffoldLogs
+    environment: DEV
+    aop:
+      enabled: true
+    dynamodb:
+      enabled: false
+
+logging:
+  level:
+    co.com.ficohsa.logging: DEBUG
+
