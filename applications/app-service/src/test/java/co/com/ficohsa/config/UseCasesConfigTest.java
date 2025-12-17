@@ -1,6 +1,7 @@
 package co.com.ficohsa.config;
 
-import co.com.ficohsa.adapter.CryptoApiAdapter;
+import co.com.ficohsa.domain.ports.out.CacheGateway;
+import co.com.ficohsa.domain.ports.out.CryptoPriceGateway;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -32,9 +33,15 @@ class UseCasesConfigTest {
     @Import(UseCasesConfig.class)
     static class TestConfig {
 
+
         @Bean
-        public CryptoApiAdapter cryptoApiAdapter() {
-            return mock(CryptoApiAdapter.class);
+        public CacheGateway cacheGateway() {
+            return mock(CacheGateway.class);
+        }
+
+        @Bean
+        public CryptoPriceGateway cryptoPriceGateway() {
+            return mock(CryptoPriceGateway.class);
         }
 
         @Bean

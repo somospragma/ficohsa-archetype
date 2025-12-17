@@ -1,17 +1,19 @@
 package co.com.ficohsa.usecase;
 
-import co.com.ficohsa.adapter.CryptoApiAdapter;
-import co.com.ficohsa.adapter.CryptoPriceResponse;
-import co.com.ficohsa.logging.clients.annotation.LogExternalCall;
+import co.com.ficohsa.domain.ports.out.CryptoPriceGateway;
+import co.com.ficohsa.domain.ports.out.CryptoPriceGateway.CryptoPriceResponse;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+/**
+ * Caso de uso: Obtener precio de criptomoneda
+ * Usa CryptoPriceGateway (output port del dominio)
+ */
 @RequiredArgsConstructor
 public class GetCryptoPriceUseCase {
-    private final CryptoApiAdapter cryptoApiAdapter;
+    private final CryptoPriceGateway cryptoPriceGateway;
 
-    @LogExternalCall(provider = "ApiNinjas")
     public Mono<CryptoPriceResponse> execute(String symbol) {
-        return cryptoApiAdapter.getCryptoPrice(symbol);
+        return cryptoPriceGateway.getCryptoPrice(symbol);
     }
 }

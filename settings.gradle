@@ -9,6 +9,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url = "https://repo.spring.io/milestone" }
         maven { url = "https://repo.spring.io/snapshot" }
@@ -31,10 +32,14 @@ project(':usecase').projectDir = file('./applications/usecase')
 
 // Domain Layer
 include ':model'
+include ':ports'
 project(':model').projectDir = file('./domain/model')
+project(':ports').projectDir = file('./domain/ports')
 
 // Infrastructure Layer
 include ':reactive-web'
 include ':external-api'
+include ':redis-adapter'
 project(':reactive-web').projectDir = file('./infrastructure/entry-points/reactive-web')
 project(':external-api').projectDir = file('./infrastructure/driven-adapters/external-api')
+project(':redis-adapter').projectDir = file('./infrastructure/driven-adapters/redis-adapter')

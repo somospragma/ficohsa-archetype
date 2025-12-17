@@ -1,0 +1,5 @@
+dependencies {
+    // Solo dependencias de Java estándar y tipos reactivos básicos
+    implementation 'io.projectreactor:reactor-core:3.6.0'
+}
+

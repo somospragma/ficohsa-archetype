@@ -1,12 +1,15 @@
 package co.com.ficohsa.config;
 
-import co.com.ficohsa.adapter.CryptoApiAdapter;
-import co.com.ficohsa.usecase.GetCryptoPriceUseCase;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+/**
+ * Configuración para auto-registro de casos de uso.
+ * Detecta automáticamente todas las clases que terminan en "UseCase"
+ * y las registra como beans de Spring sin necesidad de anotaciones.
+ * Esto mantiene los casos de uso libres de dependencias del framework (Clean Architecture).
+ */
 @Configuration
 @ComponentScan(basePackages = "co.com.ficohsa.usecase",
         includeFilters = {
@@ -14,9 +17,4 @@ import org.springframework.context.annotation.FilterType;
         },
         useDefaultFilters = false)
 public class UseCasesConfig {
-
-    @Bean
-    public GetCryptoPriceUseCase getCryptoPriceUseCase(CryptoApiAdapter cryptoApiAdapter) {
-        return new GetCryptoPriceUseCase(cryptoApiAdapter);
-    }
 }

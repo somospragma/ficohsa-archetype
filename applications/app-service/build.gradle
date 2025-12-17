@@ -3,8 +3,10 @@ apply plugin: 'org.springframework.boot'
 dependencies {
 	implementation project(':reactive-web')
     implementation project(':model')
+    implementation project(':ports')
     implementation project(':usecase')
     implementation project(':external-api')
+    implementation project(':redis-adapter')
     implementation 'org.springframework.boot:spring-boot-starter'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.4.1'
