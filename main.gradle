@@ -35,6 +35,7 @@ subprojects {
         // Ficohsa Logging Library
         implementation 'ficohsa-logging:logging-spring-boot-starter:unspecified'
 
+        implementation 'org.slf4j:slf4j-api:2.0.9'
         testImplementation 'io.projectreactor.tools:blockhound-junit-platform:1.0.15.RELEASE'
 
         testImplementation 'io.projectreactor:reactor-test'
